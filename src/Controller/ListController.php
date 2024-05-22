@@ -2,15 +2,16 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Todo;
+use DateTimeImmutable;
 use App\Form\TodoListFormType;
 use App\Repository\TodoRepository;
-use DateTime;
-use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ListController extends AbstractController
@@ -85,11 +86,11 @@ class ListController extends AbstractController
         return $this->redirectToRoute('aff_list', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/list/{id}/done', name: 'app_list_done', methods: ['GET'])]
-    public function done(Todo $todo, EntityManagerInterface $entityManager): Response
+    #[Route('/list/{id}/done', name: 'app_list_done', methods: ['POST'])]
+    public function markAsDone(Todo $todo, EntityManagerInterface $entityManager, int $id): JsonResponse
     {
         // Modification de l'état de la todo à fait.
-        if($todo->getEtat() === 0) {
+        /*if($todo->getEtat() === 0) {
             $todo->setEtat(1);
             //$todo->setUpdatedAt(new \DateTimeImmutable); --> créer maj entity Toto FinishedAt()
             $entityManager->flush();
@@ -97,9 +98,19 @@ class ListController extends AbstractController
         else {
             $todo->setEtat(0);
             $entityManager->flush();
+        }*/
+        $item = $entityManager->getRepository(Todo::class)->find($id);
+        if (!$item) {
+            return new JsonResponse(['success' => false], 404);
         }
 
+        // Toggle the state
+        $item->setEtat($item->getEtat() == 1 ? 0 : 1);
+        $entityManager->flush();
+
+        return new JsonResponse(['success' => true, 'etat' => $item->getEtat()]);
+
         // Redirection vers la liste des todos.
-        return $this->redirectToRoute('aff_list');
+        //return $this->redirectToRoute('aff_list');
     }
 }
