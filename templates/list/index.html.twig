@@ -18,10 +18,10 @@
                             <p class="card-text" style="font-style: italic">{{ item.description }}</p>
                         </div>
                         <div class="text-center d-flex">
-                            <a href="#" class="btn btn-outline-danger mb-3 m-1 equal-width-btn-list-aff" data-id="{{ item.id }}" onclick="deleteItem({{ item.id }})">
+                            <a href="{{ path('sup_list', {'id': item.id}) }}" class="btn btn-outline-danger mb-3 m-1 equal-width-btn-list-aff">
                                 <i class="bi bi-trash"></i>&nbspSupprimer
                             </a>
-                            <a href="{{ path('edt_list') }}" class="btn btn-outline-primary mb-3 m-1 equal-width-btn-list-aff {{ item.etat == 1 ? 'disabled' : '' }}">
+                            <a href="{{ path('edt_list', {'id': item.id}) }}" class="btn btn-outline-primary mb-3 m-1 equal-width-btn-list-aff {{ item.etat == 1 ? 'disabled' : '' }}">
                                 <i class="bi bi-pencil-square"></i>&nbspEditer
                             </a>
                         </div>
