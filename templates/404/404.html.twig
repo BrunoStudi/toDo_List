@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ app.session.get("setting").siteName }} | Erreur 404{% endblock %}
+
+{% block body %}
+                <div class="container">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-lg-6 col-md-10">
+                            <div class="text-center">
+                                <div class="h1 text-danger my-5" style="font-size: 144px">404</div>
+                                <h5 class="mb-2 mb-sm-3">oops! La page demandée n'a pas été trouvée.</h5>
+                                <p>La page que vous recherchez n'est plus accéssible.</p>
+                                <div class="search_form pb-3 pb-md-4">
+                                    <form method="post">
+                                        <input name="text" id="text" type="text" placeholder="Rechercher" class="form-control">
+                                        <button type="submit" class="btn icon_search"><i
+                                                class="ion-ios-search-strong"></i></button>
+                                    </form>
+                                </div>
+                                <a href="{{ path('app_home') }}" class="btn btn-outline-primary">Accueil</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ app.session.get("setting").siteName }} | S'enregister{% endblock %}
+
+{% block body %}
+    <div class="d-flex flex-column">
+        <div class="container shadow bg-white col-md-4 my-5" style="border-radius: 10px;">
+            <div class="p-3">
+                <form method="post">
+                    <div class="d-flex"></div>
+                    <h1 class="text-center mb-4">S'enregistrer :</h1>
+                    {{ form_errors(registrationForm) }}
+                    {{ form_start(registrationForm) }}
+                    <div class="mb-3 col-md-12">
+                        {{ form_row(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3 col-md-12">
+                        {{ form_row(registrationForm.plainPassword, {'label': 'Mot de Passe', 'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    {{ form_row(registrationForm.acceptezLesTermes, {'attr': {'class': 'mt-4'}}) }}
+                    <div class="mb-3 mt-4 text-center"> 
+                        <button type="submit" class="btn btn-outline-primary">S'enregistrer</button>
+                    </div>
+                    {{ form_end(registrationForm) }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

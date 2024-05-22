@@ -1,0 +1,16 @@
+{# templates/admin/easy_admin_layout.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ app.session.get("setting").siteName }} | Administration{% endblock %}
+
+{% block body %}
+{{ include('@EasyAdmin/layout.html.twig') }}
+    <div class="container-fluid">
+        
+        {# Ajoutez ici le contenu spécifique au tableau de bord EasyAdmin #}
+        {% block content %}
+            <!-- Contenu spécifique au tableau de bord EasyAdmin -->
+            
+        {% endblock %}
+    </div> 
+{% endblock %}

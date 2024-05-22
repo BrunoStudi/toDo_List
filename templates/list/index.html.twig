@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ app.session.get("setting").siteName }} | Mes Listes{% endblock %}
+
+{% block body %}
+    <div class="container-xxl py-5">
+        <div class="container">
+            <h2 class="text-center my-5 text-uppercase bg-light rounded border py-3 shadow">Mes Listes à faire</h2>
+            <div class="content-list row g-4 mt-5 d-flex flex-wrap justify-content-center">
+                {% for item in todo %}
+					<div class="card col-lg-4 col-md-6 mx-3 bg-light shadow {{ item.etat == 1 ? 'border-success' : 'border-danger' }}" style="width: 18rem; border: solid 2px;">
+  						<!--<img class="card-img-top" src="..." alt="Card image cap">-->
+  						<div class="card-body text-center overflow-auto" style="width: 260px; height: 180px;">
+    						<h5 class="card-title border-bottom pb-2">
+                                <a href="{{ path('app_list_done', {'id': item.id}) }}">
+                                    <i class="{{ item.etat == 1 ? 'bi bi-pin-angle-fill text-success' : 'bi bi-pin text-danger' }}"></i></a>&nbsp{{ item.title }}
+                            </h5>
+    						<p class="card-text" style="font-style: italic">{{ item.description }}</p>
+  						</div>
+                        <div class="text-center d-flex" > 
+                            <a href="{{ path('sup_list', {'id': item.id}) }}" class="btn btn-outline-danger mb-3 m-1 equal-width-btn-list-aff">
+                                <i class="bi bi-trash"></i>&nbspSupprimer
+                            </a>
+                            <a href="{{ path('edt_list', {'id': item.id}) }}" class="btn btn-outline-primary mb-3 m-1 equal-width-btn-list-aff {{ item.etat == 1 ? 'disabled' : '' }}">
+                                <i class="bi bi-pencil-square"></i>&nbspEditer
+                            </a>
+                        </div>
+                        <p class="text-center m-0" style="font-size: 12px;"> Liste créée le: {{ item.CreatedAt.format('d/m/Y') }}</p>
+					</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

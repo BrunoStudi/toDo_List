@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ app.session.get("setting").siteName }} | Editer une liste{% endblock %}
+
+{% block body %}
+
+	<div class="d-flex flex-column min-vh-100">
+        <div class="container shadow bg-white col-md-6 mt-5" style="border-radius: 10px;">
+            <div class="p-3">
+                <form method="post">
+                    <div class="d-flex"></div>
+                    <h1 class="text-center mb-4">Modifier une liste :</h1>
+                    <div class="mb-3 col-md-12">
+                        {{ form_label(todoForm.title, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(todoForm.title, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(todoForm.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(todoForm.description, {'attr': {'class': 'form-control', 'style': 'height: 70px;'}}) }}
+                    </div>
+                    {{ form_row(todoForm._token) }}
+                    <div class="mb-3 mt-4 text-center">
+                        <button href="{{ path('aff_list') }}" class="btn btn-outline-primary equal-width-btn-list-edit">Retour</button> 
+                        <button type="submit" class="btn btn-outline-success equal-width-btn-list-edit">Mettre à jour</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
