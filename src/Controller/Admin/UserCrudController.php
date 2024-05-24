@@ -2,20 +2,22 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Settings;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class SettingsCrudController extends AbstractCrudController
+class UserCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Settings::class;
+        return User::class;
     }
 
     public function configureActions(Actions $actions): Actions 
@@ -32,19 +34,22 @@ class SettingsCrudController extends AbstractCrudController
             IdField::new('id')
                 ->hideOnForm()
                 ->hideOnIndex(),
-            TextField::new('site_name'),
-            ImageField::new('site_logo')
+            ImageField::new('avatar')
             -> setFormTypeOptions([
                 "multiple" => false,
                 'attr' => [
                     'accept' => 'image/x-png, image/gif, image/jpeg, image/jpg, image/webp'
                 ]
             ])
-            -> setBasePath("assets/images/setting")
-            -> setUploadDir("/public/assets/images/setting")
+            -> setBasePath("assets/images/avatar")
+            -> setUploadDir("/public/assets/images/avatar")
             -> setUploadedFileNamePattern('[randomhash].[extension]')
             -> setRequired($pageName === Crud::PAGE_NEW),
-            TextField::new('copyright')
+            TextField::new('pseudo'),
+            TextField::new('name'),
+            TextField::new('surname'),
+            EmailField::new('email'),
+            ArrayField::new('roles')
         ];
     }
 }

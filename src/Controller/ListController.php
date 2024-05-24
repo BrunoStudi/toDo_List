@@ -87,19 +87,12 @@ class ListController extends AbstractController
     }
 
     #[Route('/list/{id}/done', name: 'app_list_done', methods: ['POST'])]
-    public function markAsDone(Todo $todo, EntityManagerInterface $entityManager, int $id): JsonResponse
+    public function markAsDone(EntityManagerInterface $entityManager, int $id): JsonResponse
     {
-        // Modification de l'état de la todo à fait.
-        /*if($todo->getEtat() === 0) {
-            $todo->setEtat(1);
-            //$todo->setUpdatedAt(new \DateTimeImmutable); --> créer maj entity Toto FinishedAt()
-            $entityManager->flush();
-        }
-        else {
-            $todo->setEtat(0);
-            $entityManager->flush();
-        }*/
+        //$todo->setUpdatedAt(new \DateTimeImmutable); --> créer maj entity Toto FinishedAt()
+        
         $item = $entityManager->getRepository(Todo::class)->find($id);
+        
         if (!$item) {
             return new JsonResponse(['success' => false], 404);
         }
@@ -109,8 +102,5 @@ class ListController extends AbstractController
         $entityManager->flush();
 
         return new JsonResponse(['success' => true, 'etat' => $item->getEtat()]);
-
-        // Redirection vers la liste des todos.
-        //return $this->redirectToRoute('aff_list');
     }
 }
