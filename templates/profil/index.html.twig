@@ -1,0 +1,157 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ app.session.get("setting").siteName }} | Mon profil{% endblock %}
+
+{% block body %}
+<!-- START MAIN CONTENT -->
+<div class="main_content">
+
+<div class="section my-5">
+	<div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <div class="dashboard_menu">
+                    <ul class="nav nav-tabs flex-column rounded border" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" 
+                            id="dashboard-tab" 
+                            data-bs-toggle="tab" 
+                            href="#dashboard" 
+                            role="tab" 
+                            aria-controls="dashboard" 
+                            aria-selected="false"><i class="bi bi-kanban"></i>&nbspTableau de bord</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" 
+                            id="lists-tab" 
+                            data-bs-toggle="tab" 
+                            href="#lists" 
+                            role="tab" 
+                            aria-controls="lists" 
+                            aria-selected="false"><i class="bi bi-list-ul"></i></i>&nbspMes listes</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" 
+                            id="infos-tab" 
+                            data-bs-toggle="tab" 
+                            href="#infos" 
+                            role="tab" 
+                            aria-controls="infos" 
+                            aria-selected="true"><i class="bi bi-info-square"></i>&nbspMes informations</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" 
+                            id="logout-tab"  
+                            href="#logout" 
+                            data-bs-toggle="tab" 
+                            role="tab" 
+                            aria-controls="logout" 
+                            aria-selected="true" ><i class="bi bi-box-arrow-right"></i>&nbspDéconnexion</a>
+                      </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8">
+                <div class="tab-content dashboard_content">
+                  	<div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                    	<div class="card">
+                        	<div class="card-header d-flex">
+                                <img class="rounded" src="assets/images/avatar/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
+                                <h3>&nbspTableau de bord</h3>
+                            </div>
+                            <div class="card-body shadow">
+                    			<p>Depuis votre tableau de bord de profil. Vous pouvez voir et gérer facilement vos listes de tâches et vos informations personelles.</p>
+                            </div>
+                        </div>
+                  	</div>
+                  	<div class="tab-pane fade" id="logout" role="tabpanel" aria-labelledby="logout-tab">
+                    	<div class="card">
+                        	<div class="card-header d-flex">
+                                <img class="rounded" src="assets/images/avatar/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
+                                <h3>&nbspDéconnexion</h3>
+                            </div>
+                            <div class="card-body">
+                    			<p>Depuis votre tableau de bord de profil. Vous pouvez voir et gérer facilement vos listes de tâches et vos informations personelles.</p>
+                                <a href="/logout" class="btn btn-outline-primary py-2 mt-5">Déconnexion</a>
+                            </div>
+                        </div>
+                  	</div>
+                  	<div class="tab-pane fade" id="lists" role="tabpanel" aria-labelledby="lists-tab">
+                    	<div class="card shadow">
+                        	<div class="card-header d-flex">
+                                <img class="rounded" src="assets/images/avatar/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
+                                <h3>&nbspMes listes</h3>
+                            </div>
+                            <div class="card-body">
+                    			<div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Tâches</th>
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for item in todo %}
+                                            <tr>
+                                                <td>{{ item.title }}</td>
+                                                <td>{{ item.CreatedAt.format('d/m/Y') }}</td>
+                                                <td class="{{ item.etat == 1 ? 'text-success' : '' }}">{{ item.etat == 1 ? 'Finie' : 'En cours' }}</td>
+                                                <td><a href="{{ path('edt_list', {'id': item.id}) }}" class="btn btn-outline-primary {{ item.etat == 1 ? 'disabled' : '' }} my-1"><i class="bi bi-pencil-square"></i></a>
+                                                    <a href="{{ path('sup_list', {'id': item.id}) }}" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                  	</div>
+					<div class="tab-pane fade" id="infos" role="tabpanel" aria-labelledby="infos-tab">
+                    	<div class="row">
+                        	<div class="col-lg-8">
+                                <div class="card mb-3 mb-lg-0 shadow">
+                                    <div class="card-header d-flex">
+                                        <img class="rounded" src="assets/images/avatar/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
+                                        <h3>&nbspMes infromations</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        {#<p class="row text-end mx-auto">Grade : <strong>{{ app.user.roles[0] }}</strong></p>#}
+                                        <div class="row">
+                                            <p class="col-6 text-start">Grade :</p>
+                                            <p class="col-6 text-end"><strong>{{ app.user.roles[0] }}</strong></p>
+                                        </div>
+                                        <div class="row">
+                                            <p class="col-6 text-start">Pseudonyme :</p>
+                                            <p class="col-6 text-end"><strong>{{ app.user.pseudo }}</strong></p>
+                                        </div>
+                                        <div class="row">
+                                            <p class="col-6 text-start">Prénom :</p>
+                                            <p class="col-6 text-end"><strong>{{ app.user.surname }}</strong></p>
+                                        </div>
+                                        <div class="row">
+                                            <p class="col-6 text-start">Nom :</p>
+                                            <p class="col-6 text-end"><strong>{{ app.user.name }}</strong></p>
+                                        </div>
+                                        <div class="row">
+                                            <p class="col-6 text-start">Email :</p>
+                                            <p class="col-6 text-end"><strong>{{ app.user.email }}</strong></p>
+                                        </div>
+                                        <a href="#" class="btn btn-outline-primary mt-5">Editer</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</div>
+<!-- END MAIN CONTENT -->
+{% endblock %}
