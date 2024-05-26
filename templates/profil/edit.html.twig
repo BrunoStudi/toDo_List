@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ app.session.get("setting").siteName }} | Mon profil{% endblock %}
+
+{% block body %}
+<!-- START MAIN CONTENT -->
+<div class="main_content">
+
+<div class="section my-5">
+	<div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <div class="dashboard_menu">
+                    <ul class="nav nav-tabs flex-column rounded border" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link disabled"><i class="bi bi-kanban"></i>&nbspTableau de bord</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link disabled"><i class="bi bi-list-ul"></i></i>&nbspMes listes</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link active" 
+                            id="infos-tab" 
+                            data-bs-toggle="tab" 
+                            href="#infos" 
+                            role="tab" 
+                            aria-controls="infos" 
+                            aria-selected="true"><i class="bi bi-info-square"></i>&nbspMes informations</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link disabled"><i class="bi bi-box-arrow-right"></i>&nbspDéconnexion</a>
+                      </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8">
+                <div class="tab-content dashboard_content">
+					<div class="tab-pane fade show active" id="infos" role="tabpanel" aria-labelledby="infos-tab">
+                    	<div class="row">
+                        	<div class="col-lg-8">
+                                <div class="card mb-3 mb-lg-0 shadow">
+                                    <div class="card-header d-flex">
+                                        <img class="rounded" src="../../assets/images/avatar/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
+                                        <h3>&nbspEditer mes infromations</h3>
+                                    </div>
+                                    <form method="post">
+                                        <div class="card-body">
+                                            {#<p class="row text-end mx-auto">Grade : <strong>{{ app.user.roles[0] }}</strong></p>#}
+                                            <div class="row">
+                                                <p class="col-6 text-start">Avatar :</p>
+                                                <p class="col-6 text-end">{{ form_widget(userForm.avatar, {'attr': {'class': 'form-control'}}) }}</p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-6 text-start">Pseudonyme :</p>
+                                                <p class="col-6 text-end">{{ form_widget(userForm.pseudo, {'attr': {'class': 'form-control'}}) }}</p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-6 text-start">Prénom :</p>
+                                                <p class="col-6 text-end">{{ form_widget(userForm.surname, {'attr': {'class': 'form-control'}}) }}</p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-6 text-start">Nom :</p>
+                                                <p class="col-6 text-end">{{ form_widget(userForm.name, {'attr': {'class': 'form-control'}}) }}</p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-6 text-start">Email :</p>
+                                                <p class="col-6 text-end">{{ form_widget(userForm.email, {'attr': {'class': 'form-control'}}) }}</p>
+                                            </div>
+                                            {{ form_row(userForm._token) }}
+                                            <button href="{{ path('app_profil') }}" class="btn btn-outline-primary">Profil</button>
+                                            <button type="submit" class="btn btn-outline-success">Mettre à jour</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</div>
+<!-- END MAIN CONTENT -->
+{% endblock %}

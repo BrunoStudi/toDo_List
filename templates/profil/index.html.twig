@@ -140,7 +140,7 @@
                                             <p class="col-6 text-start">Email :</p>
                                             <p class="col-6 text-end"><strong>{{ app.user.email }}</strong></p>
                                         </div>
-                                        <a href="#" class="btn btn-outline-primary mt-5">Editer</a>
+                                        <a href="{{ path('edt_profil', {'id': app.user.id}) }}#infos" class="btn btn-outline-primary mt-5">Editer</a>
                                     </div>
                                 </div>
                             </div>
