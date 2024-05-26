@@ -56,7 +56,7 @@
                   	<div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                     	<div class="card">
                         	<div class="card-header d-flex">
-                                <img class="rounded" src="assets/images/avatar/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
+                                <img class="rounded" src="uploads/images/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
                                 <h3>&nbspTableau de bord</h3>
                             </div>
                             <div class="card-body shadow">
@@ -67,7 +67,7 @@
                   	<div class="tab-pane fade" id="logout" role="tabpanel" aria-labelledby="logout-tab">
                     	<div class="card">
                         	<div class="card-header d-flex">
-                                <img class="rounded" src="assets/images/avatar/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
+                                <img class="rounded" src="uploads/images/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
                                 <h3>&nbspDéconnexion</h3>
                             </div>
                             <div class="card-body">
@@ -79,12 +79,12 @@
                   	<div class="tab-pane fade" id="lists" role="tabpanel" aria-labelledby="lists-tab">
                     	<div class="card shadow">
                         	<div class="card-header d-flex">
-                                <img class="rounded" src="assets/images/avatar/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
+                                <img class="rounded" src="uploads/images/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
                                 <h3>
                                     {% if is_granted('ROLE_ADMIN') %}
-                                        Mes listes & listes utilisateurs
+                                        &nbspMes listes & listes utilisateurs
                                     {% else %}
-                                        Mes listes
+                                        &nbspMes listes
                                     {% endif %}
                                 </h3>
                             </div>
@@ -94,6 +94,11 @@
                                         <thead>
                                             <tr>
                                                 <th>Tâches</th>
+                                                <th>
+                                                    {% if is_granted('ROLE_ADMIN') %}
+                                                        Auteur
+                                                    {% endif %}
+                                                </th>
                                                 <th>Date</th>
                                                 <th>Status</th>
                                                 <th>Actions</th>
@@ -103,6 +108,11 @@
                                         {% for item in todo %}
                                             <tr>
                                                 <td>{{ item.title }}</td>
+                                                <td>
+                                                    {% if is_granted('ROLE_ADMIN') %}
+                                                        {{ item.authorId }}
+                                                    {% endif %}
+                                                </td>
                                                 <td>{{ item.CreatedAt.format('d/m/Y') }}</td>
                                                 <td class="{{ item.etat == 1 ? 'text-success' : '' }}">{{ item.etat == 1 ? 'Finie' : 'En cours' }}</td>
                                                 <td><a href="{{ path('edt_list', {'id': item.id}) }}" class="btn btn-outline-primary {{ item.etat == 1 ? 'disabled' : '' }} my-1"><i class="bi bi-pencil-square"></i></a>
@@ -121,7 +131,7 @@
                         	<div class="col-lg-8">
                                 <div class="card mb-3 mb-lg-0 shadow">
                                     <div class="card-header d-flex">
-                                        <img class="rounded" src="assets/images/avatar/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
+                                        <img class="rounded" src="uploads/images/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
                                         <h3>&nbspMes infromations</h3>
                                     </div>
                                     <div class="card-body">

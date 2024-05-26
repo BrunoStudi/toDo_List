@@ -16,7 +16,7 @@
         <p class="h5 py-5 rounded border border-secondary bg-light custom-margin">
             Votre application est prête à enregistrer de nouvelles tâches. Evitez les trous de mémoire et utilisez votre '{{ app.session.get("setting").siteName }}' 
             pour éviter d'oublier d'imporantes tâches dans votre journée !</p>
-        <img class="rounded shadow my-5" src="assets/images/avatar/{{ app.user.avatar }}" style="width: 250px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
+        <img class="rounded shadow my-5" src="uploads/images/{{ app.user.avatar }}" style="width: 250px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
     {% else %}
         <h2 class="mb-5">Bienvenue <span class="rounded bg-dark px-2 pb-2 text-light">Visiteur</span></h2>
     {% endif %}

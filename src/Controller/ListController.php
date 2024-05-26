@@ -15,17 +15,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class ListController extends AbstractController
 {
     #[Route('/list', name: 'aff_list')]
-    public function index(TodoRepository $todoRepo, Security $security): Response
+    public function index(TodoRepository $todoRepo, Security $security, AuthorizationCheckerInterface $authChecker): Response
     {
         $user = $security->getUser();
-        $todo = $todoRepo->findBy(['AuthorId' => $user]);
-
-        if ($user->getRoles('ROLE_ADMIN')) {
+        
+        if ($authChecker->isGranted('ROLE_ADMIN')) {
             $todo = $todoRepo->findAll();
+        }
+        else {
+            $todo = $todoRepo->findBy(['AuthorId' => $user]);
         }
         
         return $this->render('list/index.html.twig', [

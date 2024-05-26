@@ -43,12 +43,12 @@
                                         <img class="rounded" src="../../assets/images/avatar/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
                                         <h3>&nbspEditer mes infromations</h3>
                                     </div>
-                                    <form method="post">
+                                    <form method="post", enctype="multipart/form-data">
                                         <div class="card-body">
                                             {#<p class="row text-end mx-auto">Grade : <strong>{{ app.user.roles[0] }}</strong></p>#}
                                             <div class="row">
                                                 <p class="col-6 text-start">Avatar :</p>
-                                                <p class="col-6 text-end">{{ form_widget(userForm.avatar, {'attr': {'class': 'form-control'}}) }}</p>
+                                                <p class="col-6 text-end">{{ form_widget(userForm.avatar, {'attr': {'class': 'form-control', 'value': user.avatar }}) }}</p>
                                             </div>
                                             <div class="row">
                                                 <p class="col-6 text-start">Pseudonyme :</p>
