@@ -29,6 +29,10 @@ class Todo
     #[ORM\Column(nullable: true)]
     private ?int $etat = null;
 
+    #[ORM\ManyToOne(inversedBy: 'todos')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $AuthorId = null;
+
     public function __construct() {
         return $this->setCreatedAt(new \DateTimeImmutable());
     }
@@ -94,6 +98,18 @@ class Todo
     public function setEtat(?int $etat): static
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getAuthorId(): ?User
+    {
+        return $this->AuthorId;
+    }
+
+    public function setAuthorId(?User $AuthorId): static
+    {
+        $this->AuthorId = $AuthorId;
 
         return $this;
     }

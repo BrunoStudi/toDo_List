@@ -80,7 +80,13 @@
                     	<div class="card shadow">
                         	<div class="card-header d-flex">
                                 <img class="rounded" src="assets/images/avatar/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
-                                <h3>&nbspMes listes</h3>
+                                <h3>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        Mes listes & listes utilisateurs
+                                    {% else %}
+                                        Mes listes
+                                    {% endif %}
+                                </h3>
                             </div>
                             <div class="card-body">
                     			<div class="table-responsive">

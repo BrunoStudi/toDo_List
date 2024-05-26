@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Todo;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Todo>
@@ -16,6 +17,19 @@ class TodoRepository extends ServiceEntityRepository
         parent::__construct($registry, Todo::class);
     }
 
+    /**
+     * @param User $user
+     * @return Todo[]
+     */
+    public function findByUser(User $user): array
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
+    
     //    /**
     //     * @return Todo[] Returns an array of Todo objects
     //     */

@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\Todo;
+use App\Entity\User;
 use DateTimeImmutable;
 use App\Form\TodoListFormType;
 use App\Repository\TodoRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -17,10 +19,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ListController extends AbstractController
 {
     #[Route('/list', name: 'aff_list')]
-    public function index(TodoRepository $todoRepo): Response
+    public function index(TodoRepository $todoRepo, Security $security): Response
     {
-        $todo = $todoRepo->findAll();
+        $user = $security->getUser();
+        $todo = $todoRepo->findBy(['AuthorId' => $user]);
 
+        if ($user->getRoles('ROLE_ADMIN')) {
+            $todo = $todoRepo->findAll();
+        }
+        
         return $this->render('list/index.html.twig', [
             'todo' => $todo
         ]);
@@ -39,6 +46,7 @@ class ListController extends AbstractController
             if ($todo->getEtat() === null) {
                 $todo->setEtat(0);
             }
+            $todo->setAuthorId($this->getUser());
             $entityManager->persist($todo);
             $entityManager->flush();
 
