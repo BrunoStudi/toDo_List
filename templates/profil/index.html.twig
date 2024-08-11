@@ -28,7 +28,13 @@
                             href="#lists" 
                             role="tab" 
                             aria-controls="lists" 
-                            aria-selected="false"><i class="bi bi-list-ul"></i></i>&nbspMes listes</a>
+                            aria-selected="false"><i class="bi bi-list-ul"></i>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                        &nbspToutes les listes
+                                    {% else %}
+                                        &nbspMes listes
+                                    {% endif %}
+                            </a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" 
@@ -60,7 +66,7 @@
                                 <h3>&nbspTableau de bord</h3>
                             </div>
                             <div class="card-body shadow">
-                    			<p>Depuis votre tableau de bord de profil. Vous pouvez voir et gérer facilement vos listes de tâches et vos informations personelles.</p>
+                    			<p>Depuis votre tableau de bord de profil. Vous pouvez voir et gérer facilement vos listes de tâches et vos informations personnelles.</p>
                             </div>
                         </div>
                   	</div>
@@ -71,7 +77,7 @@
                                 <h3>&nbspDéconnexion</h3>
                             </div>
                             <div class="card-body">
-                    			<p>Depuis votre tableau de bord de profil. Vous pouvez voir et gérer facilement vos listes de tâches et vos informations personelles.</p>
+                    			<p>Depuis votre tableau de bord de profil. Vous pouvez voir et gérer facilement vos listes de tâches et vos informations personnelles.</p>
                                 <a href="/logout" class="btn btn-outline-primary py-2 mt-5">Déconnexion</a>
                             </div>
                         </div>
@@ -82,7 +88,7 @@
                                 <img class="rounded" src="uploads/images/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
                                 <h3>
                                     {% if is_granted('ROLE_ADMIN') %}
-                                        &nbspMes listes & listes utilisateurs
+                                        &nbspToutes les listes
                                     {% else %}
                                         &nbspMes listes
                                     {% endif %}
@@ -146,11 +152,11 @@
                                         </div>
                                         <div class="row">
                                             <p class="col-6 text-start">Prénom :</p>
-                                            <p class="col-6 text-end"><strong>{{ app.user.surname }}</strong></p>
+                                            <p class="col-6 text-end"><strong>{{ app.user.name }}</strong></p>
                                         </div>
                                         <div class="row">
                                             <p class="col-6 text-start">Nom :</p>
-                                            <p class="col-6 text-end"><strong>{{ app.user.name }}</strong></p>
+                                            <p class="col-6 text-end"><strong>{{ app.user.surname }}</strong></p>
                                         </div>
                                         <div class="row">
                                             <p class="col-6 text-start">Email :</p>

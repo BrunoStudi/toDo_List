@@ -68,7 +68,6 @@ class ProfilController extends AbstractController
                 $user->setAvatar($newFilename);
 
                 // Enregistrement des modifications en base de données
-                $user->setAvatar($newFilename);
                 $entityManager->persist($user);
                 $entityManager->flush();
             }

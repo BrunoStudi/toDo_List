@@ -41,8 +41,8 @@ class UserCrudController extends AbstractCrudController
                     'accept' => 'image/x-png, image/gif, image/jpeg, image/jpg, image/webp'
                 ]
             ])
-            -> setBasePath("assets/images/avatar")
-            -> setUploadDir("/public/assets/images/avatar")
+            -> setBasePath("uploads/images/")
+            -> setUploadDir("/public/uploads/images/")
             -> setUploadedFileNamePattern('[randomhash].[extension]')
             -> setRequired($pageName === Crud::PAGE_NEW),
             TextField::new('pseudo'),

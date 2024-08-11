@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ app.session.get("setting").siteName }} | S'enregister{% endblock %}
+{% block title %} {{ app.session.get("setting").siteName }} | S'enregistrer{% endblock %}
 
 {% block body %}
     <div class="d-flex flex-column">
@@ -8,11 +8,11 @@
             <div class="p-3">
                 <form method="post">
                     <div class="d-flex"></div>
-                    <h1 class="text-center mb-4">S'enregistrer :</h1>
+                    <h1 class="text-center mb-4">Créer un compte :</h1>
                     {{ form_errors(registrationForm) }}
                     {{ form_start(registrationForm) }}
                     <div class="mb-3 col-md-12">
-                        {{ form_row(registrationForm.pseudo, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(registrationForm.pseudo|escape, {'attr': {'class': 'form-control'}}) }}
                     </div>
                     <div class="mb-3 col-md-12">
                         {{ form_row(registrationForm.name, {'label': 'Nom', 'attr': {'class': 'form-control'}}) }}

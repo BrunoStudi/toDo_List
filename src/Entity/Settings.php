@@ -28,6 +28,9 @@ class Settings
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $homeLogo = null;
+
     public function __construct()
     {
         return $this->setCreatedAt(new \DateTimeImmutable());
@@ -94,6 +97,18 @@ class Settings
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getHomeLogo(): ?string
+    {
+        return $this->homeLogo;
+    }
+
+    public function setHomeLogo(?string $homeLogo): static
+    {
+        $this->homeLogo = $homeLogo;
 
         return $this;
     }

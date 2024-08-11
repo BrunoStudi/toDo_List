@@ -6,22 +6,31 @@
 
 <div class="container-fluid text-center my-5">
     {% if app.user %}
-        <h2 class="mb-5">Bienvenue 
+        <h2 class="mb-5">
+            <img class="avatar rounded shadow my-5" src="uploads/images/{{ app.user.avatar }}" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
+            Bienvenue 
             <span class="rounded {{ is_granted('ROLE_ADMIN') ? 'bg-danger' : 'bg-primary' }} px-2 pb-1 text-light position-relative">{{ app.user.pseudo }}
-            {% if is_granted('ROLE_ADMIN') %}
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary" style="font-size: 11px;">admin</span>
-            {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary" style="font-size: 11px;">admin</span>
+                {% endif %}
             </span>
         </h2>
         <p class="h5 py-5 rounded border border-secondary bg-light custom-margin">
-            Votre application est prête à enregistrer de nouvelles tâches. Evitez les trous de mémoire et utilisez votre '{{ app.session.get("setting").siteName }}' 
-            pour éviter d'oublier d'imporantes tâches dans votre journée !</p>
-        <img class="rounded shadow my-5" src="uploads/images/{{ app.user.avatar }}" style="width: 250px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
+            Votre application favorite pour planifier vos tâches. Evitez les trous de mémoire et utilisez '{{ app.session.get("setting").siteName }}' 
+            pour éviter d'oublier d'imporantes tâches à réaliser dans votre journée !
+        </p>
     {% else %}
         <h2 class="mb-5">Bienvenue <span class="rounded bg-dark px-2 pb-2 text-light">Visiteur</span></h2>
     {% endif %}
+    <img class="homelogo my-3" src="assets/images/setting/{{ app.session.get("setting").homeLogo  }}">
+    
+    <p>Tâche(s) en cours:  </p>
+    <p>Tâche(s) terminées:  </p>
+    <p>Nombre total de tâche(s):  </p>
+    
     </br>
     <a href="{{ path('add_list') }}" class="btn btn-outline-primary my-5 {{ not app.user ? 'disabled' : '' }}">Ajouter une liste</a>
 </div>
 
 {% endblock %}
+

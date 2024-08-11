@@ -44,6 +44,17 @@ class SettingsCrudController extends AbstractCrudController
             -> setUploadDir("/public/assets/images/setting")
             -> setUploadedFileNamePattern('[randomhash].[extension]')
             -> setRequired($pageName === Crud::PAGE_NEW),
+            ImageField::new('home_logo')
+            -> setFormTypeOptions([
+                "multiple" => false,
+                'attr' => [
+                    'accept' => 'image/x-png, image/gif, image/jpeg, image/jpg, image/webp'
+                ]
+            ])
+            -> setBasePath("assets/images/setting")
+            -> setUploadDir("/public/assets/images/setting")
+            -> setUploadedFileNamePattern('[randomhash].[extension]')
+            -> setRequired($pageName === Crud::PAGE_NEW),
             TextField::new('copyright')
         ];
     }
