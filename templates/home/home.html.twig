@@ -24,12 +24,16 @@
     {% endif %}
     <img class="homelogo my-3" src="assets/images/setting/{{ app.session.get("setting").homeLogo  }}">
     
-    <p>Tâche(s) en cours:  </p>
-    <p>Tâche(s) terminées:  </p>
-    <p>Nombre total de tâche(s):  </p>
+    <div class= mt-3>
+        {% if app.user %}
+            <p>Tâche(s) en cours: {{ nblstInProgress|length }} </p>
+            <p>Tâche(s) terminées: {{ nblstDone|length }}</p>
+            <p>Nombre total de tâche(s): {{ nblst|length }}</p>
+        {% endif %}
+    </div>
     
     </br>
-    <a href="{{ path('add_list') }}" class="btn btn-outline-primary my-5 {{ not app.user ? 'disabled' : '' }}">Ajouter une liste</a>
+    <a href="{{ path('add_list') }}" class="btn btn-outline-primary my-3 {{ not app.user ? 'disabled' : '' }}">Ajouter une liste</a>
 </div>
 
 {% endblock %}
