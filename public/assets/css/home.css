@@ -1,6 +1,16 @@
-.custom-margin {
+* {
+    letter-spacing: 0px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.custom-margin-slogan {
     margin-left: 20%;
     margin-right: 20%;
+}
+
+.custom-margin-nbt {
+    margin-left: 35%;
+    margin-right: 35%;
 }
 
 .avatar {

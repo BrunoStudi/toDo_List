@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Function to handle the AJAX request for marking as done
+    // Fonction pour traiter la requête AJAX afin de marquer la "tâche" comme terminée
     function markAsDone(event) {
         event.preventDefault();
         const itemId = this.dataset.id;
@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                
             }
         })
         .then(response => response.json())
@@ -38,10 +37,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Attach event listeners to all mark-as-done buttons
+    // Attacher un evenement d'ecoute sur tout les boutons mark-as-done
     document.querySelectorAll('.mark-as-done').forEach(button => {
         button.addEventListener('click', markAsDone);
     });
-
-    // Similar functions can be created for delete and edit actions
 });

@@ -4,8 +4,8 @@
 
 {% block body %}
     <div class="container-xxl py-5">
-        <div class="container">
-            <h2 class="text-center my-5 text-uppercase bg-light rounded border py-3 shadow">Mes Listes à faire</h2>
+        <div class="container text-center">
+            <h2 class="text-center my-5 text-uppercase bg-light rounded border py-3 shadow">Gérer mes tâches</h2>
             <div class="row g-4 mt-5 d-flex flex-wrap justify-content-center">
                 {% for item in todo %}
                     <div id="item-{{ item.id }}" class="card col-lg-4 col-md-6 mx-3 bg-light shadow {{ item.etat == 1 ? 'border-success' : 'border-danger' }}" style="width: 18rem; border: solid 2px;">
@@ -27,6 +27,7 @@
                     </div>
                 {% endfor %}
             </div>
+            <a href="{{ path('add_list') }}" class="btn btn-outline-primary my-5" style="width: 180px; height: 40px">Ajouter une tâche</a>
         </div>
     </div>
 {% endblock %}

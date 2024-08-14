@@ -44,12 +44,12 @@
                         <li class="nav-item"><a class="nav-link {{ app.request.get('_route') == 'admin' ? 'active' : '' }}" href="{{ path('admin') }}"><i class="bi bi-gear-fill"></i>&nbspAdministration</a></li>
                     {% endif %}
                     {% if app.user %}
-                        <li class="nav-item"><a class="nav-link {{ app.request.get('_route') == 'app_profil' ? 'active' : '' }}" href="{{ path('app_profil') }}"><i class="bi bi-person-vcard"></i>&nbspProfil</a></li>
+                        <li class="nav-item"><a class="nav-link {{ app.request.get('_route') == 'app_profil' ? 'active' : '' }}" href="{{ path('app_profil') }}"><i class="bi bi-person-vcard"></i>&nbspMon profil</a></li>
                         <li class="nav-item"><a class="nav-link {{ app.request.get('_route') == 'aff_list' ? 'active' : '' }}" href="{{ path('aff_list') }}"><i class="bi bi-list-ul"></i>
                             {% if is_granted('ROLE_ADMIN') %}
-                                &nbspToutes les listes
+                                &nbspGestion des tâches
                             {% else %}
-                                &nbspMes listes
+                                &nbspMes tâches
                             {% endif %}</a>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}"><i class="bi bi-box-arrow-right"></i>&nbspDeconnexion</a></li>

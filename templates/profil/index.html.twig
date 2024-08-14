@@ -30,9 +30,9 @@
                             aria-controls="lists" 
                             aria-selected="false"><i class="bi bi-list-ul"></i>
                             {% if is_granted('ROLE_ADMIN') %}
-                                        &nbspToutes les listes
+                                        &nbspToutes les tâches
                                     {% else %}
-                                        &nbspMes listes
+                                        &nbspMes tâches
                                     {% endif %}
                             </a>
                       </li>
@@ -88,9 +88,9 @@
                                 <img class="rounded" src="uploads/images/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
                                 <h3>
                                     {% if is_granted('ROLE_ADMIN') %}
-                                        &nbspToutes les listes
+                                        &nbspGestion des tâches
                                     {% else %}
-                                        &nbspMes listes
+                                        &nbspMes tâches
                                     {% endif %}
                                 </h3>
                             </div>
