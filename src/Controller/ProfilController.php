@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class ProfilController extends AbstractController
 {
-    #[Route('/profil', name: 'app_profil')]
+    #[Route('/user/profil', name: 'app_profil')]
     public function index(TodoRepository $todoRepo, Security $security, User $user, AuthorizationCheckerInterface $authChecker): Response
     {
         $user = $security->getUser();
@@ -35,7 +35,7 @@ class ProfilController extends AbstractController
         ]);
     }
 
-    #[Route('profil/edit/{id}', name: 'edt_profil', methods: ['GET', 'POST'])]
+    #[Route('user/profil/edit/{id}', name: 'edt_profil', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, SluggerInterface $slugger, EntityManagerInterface $entityManager): Response
     {
         // Création du formulaire de modification de la todo

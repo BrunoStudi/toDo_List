@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class ListController extends AbstractController
 {
-    #[Route('/list', name: 'aff_list')]
+    #[Route('user/task', name: 'aff_list')]
     public function index(TodoRepository $todoRepo, Security $security, AuthorizationCheckerInterface $authChecker): Response
     {
         $user = $security->getUser();
@@ -36,7 +36,7 @@ class ListController extends AbstractController
         ]);
     }
 
-    #[Route('/add', name: 'add_list')]
+    #[Route('user/task/add', name: 'add_list')]
     public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
         $todo = new Todo();
@@ -63,7 +63,7 @@ class ListController extends AbstractController
         ]);
     }
 
-    #[Route('/edit/{id}', name: 'edt_list', methods: ['GET', 'POST'])]
+    #[Route('user/task/edit/{id}', name: 'edt_list', methods: ['GET', 'POST'])]
     public function edit(Request $request, Todo $todo, EntityManagerInterface $entityManager): Response
     {
         // Création du formulaire de modification de la todo
@@ -86,7 +86,7 @@ class ListController extends AbstractController
         ]);
     }
 
-    #[Route('/remove/{id}', name: 'sup_list', methods: ['GET', 'POST'])]
+    #[Route('user/task/remove/{id}', name: 'sup_list', methods: ['GET', 'POST'])]
     public function delete(Todo $todo, EntityManagerInterface $entityManager): Response
     {
         // Suppression de la todo.
@@ -97,7 +97,7 @@ class ListController extends AbstractController
         return $this->redirectToRoute('aff_list', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/list/{id}/done', name: 'app_list_done', methods: ['POST'])]
+    #[Route('user/task/{id}/done', name: 'app_list_done', methods: ['POST'])]
     public function markAsDone(EntityManagerInterface $entityManager, int $id): JsonResponse
     {
         //$todo->setUpdatedAt(new \DateTimeImmutable); --> créer maj entity Toto FinishedAt()

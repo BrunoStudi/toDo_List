@@ -62,7 +62,7 @@
                   	<div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                     	<div class="card">
                         	<div class="card-header d-flex">
-                                <img class="rounded" src="uploads/images/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
+                                <img class="rounded" src="/uploads/images/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='/assets/images/avatar/defaut.jpg';">
                                 <h3>&nbspTableau de bord</h3>
                             </div>
                             <div class="card-body shadow">
@@ -73,7 +73,7 @@
                   	<div class="tab-pane fade" id="logout" role="tabpanel" aria-labelledby="logout-tab">
                     	<div class="card">
                         	<div class="card-header d-flex">
-                                <img class="rounded" src="uploads/images/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
+                                <img class="rounded" src="/uploads/images/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='/assets/images/avatar/defaut.jpg';">
                                 <h3>&nbspDéconnexion</h3>
                             </div>
                             <div class="card-body">
@@ -85,7 +85,7 @@
                   	<div class="tab-pane fade" id="lists" role="tabpanel" aria-labelledby="lists-tab">
                     	<div class="card shadow">
                         	<div class="card-header d-flex">
-                                <img class="rounded" src="uploads/images/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
+                                <img class="rounded" src="/uploads/images/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='/assets/images/avatar/defaut.jpg';">
                                 <h3>
                                     {% if is_granted('ROLE_ADMIN') %}
                                         &nbspGestion des tâches
@@ -137,7 +137,7 @@
                         	<div class="col-lg-8">
                                 <div class="card mb-3 mb-lg-0 shadow">
                                     <div class="card-header d-flex">
-                                        <img class="rounded" src="uploads/images/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='assets/images/avatar/defaut.jpg';">
+                                        <img class="rounded" src="/uploads/images/{{ app.user.avatar }}" style="width: 50px;" onerror="this.onerror=null; this.src='/assets/images/avatar/defaut.jpg';">
                                         <h3>&nbspMes infromations</h3>
                                     </div>
                                     <div class="card-body">
