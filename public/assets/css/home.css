@@ -3,14 +3,12 @@
     -webkit-font-smoothing: antialiased;
 }
 
-.custom-margin-slogan {
-    margin-left: 20%;
-    margin-right: 20%;
+.custom-margin-left-end-task {
+    margin-left: 37px;
 }
 
-.custom-margin-nbt {
-    margin-left: 35%;
-    margin-right: 35%;
+.custom-margin-left-current-task {
+    margin-left: 56px;
 }
 
 .avatar {

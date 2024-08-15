@@ -18,17 +18,17 @@
     {% else %}
         <h2 class="mb-5">Bienvenue <span class="rounded bg-dark px-2 pb-2 text-light">Visiteur</span></h2>
     {% endif %}
-    <p class="h5 py-5 rounded border border-secondary bg-light custom-margin-slogan">
+    <p class="h5 py-5 rounded border border-secondary bg-light col-lg-6 mx-auto">
         Votre application favorite pour planifier vos tâches. Evitez les trous de mémoire et utilisez '{{ app.session.get("setting").siteName }}' 
         pour éviter d'oublier d'imporantes tâches à réaliser dans votre journée !
     </p>
     <img class="homelogo my-3" src="/assets/images/setting/{{ app.session.get("setting").homeLogo  }}">
     
     {% if app.user %}
-        <div class="mt-3 pt-3 border-top custom-margin-nbt">
-            <p>Tâche(s) en cours: <span class="bg-danger rounded-pill px-2 py-1">{{ nblstInProgress|length }}</span></p>
-            <p>Tâche(s) terminée(s): <span class="bg-success rounded-pill px-2 py-1">{{ nblstDone|length }}</span></p>
-            <p>Nombre total de tâche(s): <span class="bg-info rounded-pill px-2 py-1">{{ nblst|length }}</span></p>
+        <div class="pt-5 border-top col-lg-6 mx-auto">
+            <p>Tâche(s) en cours: <span class="border border-2 border-danger rounded-pill px-2 py-1 custom-margin-left-current-task">{{ nblstInProgress|length }}</span></p>
+            <p>Tâche(s) terminée(s): <span class="border border-2 border-success rounded-pill px-2 py-1 custom-margin-left-end-task">{{ nblstDone|length }}</span></p>
+            <p>Nombre total de tâche(s): <span class="border border-2 border-info rounded-pill px-2 py-1">{{ nblst|length }}</span></p>
         </div>
     {% endif %}
     </br>
