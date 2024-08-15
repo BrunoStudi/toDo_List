@@ -30,6 +30,8 @@
             <p>Tâche(s) terminée(s): <span class="border border-2 border-success rounded-pill px-2 py-1 custom-margin-left-end-task">{{ nblstDone|length }}</span></p>
             <p>Nombre total de tâche(s): <span class="border border-2 border-info rounded-pill px-2 py-1">{{ nblst|length }}</span></p>
         </div>
+    {% else %}
+        <p class="mt-5"><i class="bi bi-exclamation-triangle-fill text-danger"></i>&nbspConnectez vous ou enregistrez vous pour commencer à utiliser "{{ app.session.get("setting").siteName }}."</p>
     {% endif %}
     </br>
 </div>
