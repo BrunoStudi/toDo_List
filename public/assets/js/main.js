@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
         const itemId = this.dataset.id;
 
-        fetch(`/list/${itemId}/done`, {     
+        fetch(`/user/task/${itemId}/done`, {     
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
