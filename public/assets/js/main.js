@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
         const itemId = this.dataset.id;
 
+        //recupération de la requette (route)
         fetch(`/user/task/${itemId}/done`, {     
             method: 'POST',
             headers: {
@@ -37,8 +38,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Attacher un evenement d'ecoute sur tout les boutons mark-as-done
-    document.querySelectorAll('.mark-as-done').forEach(button => {
+    // Attacher un evenement d'ecoute sur tout les boutons de classe mark-as-done
+        document.querySelectorAll('.mark-as-done').forEach(button => {
         button.addEventListener('click', markAsDone);
     });
 });

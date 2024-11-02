@@ -17,7 +17,7 @@ class TodoListFormType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Titre de la liste',
+                    'placeholder' => 'Titre de la tâche',
                     'class' => 'form-control'
                 ],
                 'row_attr' => [

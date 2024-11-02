@@ -20,10 +20,14 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class ListController extends AbstractController
 {
     #[Route('user/task', name: 'aff_list')]
-    public function index(TodoRepository $todoRepo, Security $security, AuthorizationCheckerInterface $authChecker): Response
+    public function index(
+        TodoRepository $todoRepo, 
+        Security $security, 
+        AuthorizationCheckerInterface $authChecker): Response
     {
         $user = $security->getUser();
         
+        // Récupération des listes de l'utilisateur connecté ou toutes pour l'admin
         if ($authChecker->isGranted('ROLE_ADMIN')) {
             $todo = $todoRepo->findAll();
         }
@@ -37,7 +41,9 @@ class ListController extends AbstractController
     }
 
     #[Route('user/task/add', name: 'add_list')]
-    public function add(Request $request, EntityManagerInterface $entityManager): Response
+    public function add(
+        Request $request, 
+        EntityManagerInterface $entityManager): Response
     {
         $todo = new Todo();
 
@@ -64,7 +70,10 @@ class ListController extends AbstractController
     }
 
     #[Route('user/task/edit/{id}', name: 'edt_list', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Todo $todo, EntityManagerInterface $entityManager): Response
+    public function edit(
+        Request $request, 
+        Todo $todo, 
+        EntityManagerInterface $entityManager): Response
     {
         // Création du formulaire de modification de la todo
         $form = $this->createForm(TodoListFormType::class, $todo);
@@ -87,7 +96,9 @@ class ListController extends AbstractController
     }
 
     #[Route('user/task/remove/{id}', name: 'sup_list', methods: ['GET', 'POST'])]
-    public function delete(Todo $todo, EntityManagerInterface $entityManager): Response
+    public function delete(
+        Todo $todo, 
+        EntityManagerInterface $entityManager): Response
     {
         // Suppression de la todo.
         $entityManager->remove($todo);
@@ -98,7 +109,8 @@ class ListController extends AbstractController
     }
 
     #[Route('user/task/{id}/done', name: 'app_list_done', methods: ['POST'])]
-    public function markAsDone(EntityManagerInterface $entityManager, int $id): JsonResponse
+    public function markAsDone(
+        EntityManagerInterface $entityManager, int $id): JsonResponse
     {
         //$todo->setUpdatedAt(new \DateTimeImmutable); --> créer maj entity Toto FinishedAt()
         
@@ -108,7 +120,7 @@ class ListController extends AbstractController
             return new JsonResponse(['success' => false], 404);
         }
 
-        // Toggle the state
+        // Bascule l'état de la tache
         $item->setEtat($item->getEtat() == 1 ? 0 : 1);
         $entityManager->flush();
 

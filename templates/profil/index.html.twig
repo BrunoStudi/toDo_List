@@ -30,10 +30,10 @@
                             aria-controls="lists" 
                             aria-selected="false"><i class="bi bi-list-ul"></i>
                             {% if is_granted('ROLE_ADMIN') %}
-                                        &nbspToutes les tâches
-                                    {% else %}
-                                        &nbspMes tâches
-                                    {% endif %}
+                                &nbspToutes les tâches
+                            {% else %}
+                                &nbspMes tâches
+                            {% endif %}
                             </a>
                       </li>
                       <li class="nav-item">
@@ -120,7 +120,8 @@
                                                     {% endif %}
                                                 </td>
                                                 <td>{{ item.CreatedAt.format('d/m/Y') }}</td>
-                                                <td class="{{ item.etat == 1 ? 'text-success' : '' }}">{{ item.etat == 1 ? 'Finie' : 'En cours' }}</td>
+                                                {# Ecriture ternaire: équivaut à un if else #}
+                                                <td class="{{ item.etat == 1 ? 'text-success' : 'text-danger' }}">{{ item.etat == 1 ? 'Finie' : 'En cours' }}</td>
                                                 <td><a href="{{ path('edt_list', {'id': item.id}) }}" class="btn btn-outline-primary {{ item.etat == 1 ? 'disabled' : '' }} my-1"><i class="bi bi-pencil-square"></i></a>
                                                     <a href="{{ path('sup_list', {'id': item.id}) }}" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a>
                                                 </td>
@@ -141,7 +142,6 @@
                                         <h3>&nbspMes informations</h3>
                                     </div>
                                     <div class="card-body">
-                                        {#<p class="row text-end mx-auto">Grade : <strong>{{ app.user.roles[0] }}</strong></p>#}
                                         <div class="row">
                                             <p class="col-6 text-start">Grade :</p>
                                             <p class="col-6 text-end"><strong>{{ app.user.roles[0] }}</strong></p>

@@ -16,7 +16,11 @@ use Symfony\Component\Routing\Attribute\Route;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
+    public function register(
+        Request $request, 
+        UserPasswordHasherInterface $userPasswordHasher, 
+        Security $security, 
+        EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -24,7 +28,7 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setRoles(['ROLE_UTILISATEUR']);
-            // encode the plain password
+            // Crypter le mot de pass
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -35,7 +39,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // do anything else you need here, like send an email
+            // ici on peu ajouter une fonction pour un envoi de mail par exemple...
 
             return $security->login($user, UserAuthenticator::class, 'main');
         }
@@ -46,7 +50,11 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/admin/register/new/user', name: 'app_register_admin')]
-    public function registerAdmin(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
+    public function registerAdmin(
+        Request $request, 
+        UserPasswordHasherInterface $userPasswordHasher, 
+        Security $security, 
+        EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -54,7 +62,7 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setRoles(['ROLE_ADMIN']);
-            // encode the plain password
+            // Crypter le mot de pass
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -65,7 +73,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // do anything else you need here, like send an email
+            // Ici on peu ajouter une fonction d'envoi d'email par exemple...
 
             return $security->login($user, UserAuthenticator::class, 'main');
         }

@@ -18,7 +18,11 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class ProfilController extends AbstractController
 {
     #[Route('/user/profil', name: 'app_profil')]
-    public function index(TodoRepository $todoRepo, Security $security, User $user, AuthorizationCheckerInterface $authChecker): Response
+    public function index(
+        TodoRepository $todoRepo, 
+        Security $security, 
+        User $user, 
+        AuthorizationCheckerInterface $authChecker): Response
     {
         $user = $security->getUser();
 
@@ -36,7 +40,11 @@ class ProfilController extends AbstractController
     }
 
     #[Route('user/profil/edit/{id}', name: 'edt_profil', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, SluggerInterface $slugger, EntityManagerInterface $entityManager): Response
+    public function edit(
+        Request $request, 
+        User $user, 
+        SluggerInterface $slugger, 
+        EntityManagerInterface $entityManager): Response
     {
         // Création du formulaire de modification de la todo
         $form = $this->createForm(UserFormType::class, $user, [
@@ -47,7 +55,7 @@ class ProfilController extends AbstractController
 
         // Vérification de la soumission du formulaire et de sa validité
         if ($form->isSubmitted() && $form->isValid()) {
-            //ajouter image avatar
+            //ajouter une image avatar
             $imageFile = $form->get('avatar')->getData();
 
             if ($imageFile) {

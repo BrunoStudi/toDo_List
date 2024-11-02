@@ -20,7 +20,7 @@ class UserFormType extends AbstractType
                 // unmapped signifie que le champ n'est pas associé à une propriété d'entité.
                 'mapped' => false,
                 /* rendez-le facultatif afin que vous n'ayez pas à télécharger à nouveau le fichier
-                a chaque fois que vous editez les details de la recette.*/
+                a chaque fois que vous editez les details de la tâche.*/
                 'required' => false,
                 /* les champs unmapped ne peuvent pas définir leur validation à l'aide d'attributs
                 dans l'entité associée, vous pouvez donc utiliser les classes de contraintes PHP*/

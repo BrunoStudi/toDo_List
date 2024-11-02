@@ -26,6 +26,7 @@ class HomeController extends AbstractController
         $session->set("setting", $data[0]);
         $user = $security->getUser();
         
+        // Récupération des listes en fonction de l'utilisateur connecté
         if ($authChecker->isGranted('ROLE_ADMIN')) {
             $nblst = $todoRepo->findAll();
             $nblstDone = $todoRepo->findBy(['etat' => 1 ]);
@@ -36,11 +37,6 @@ class HomeController extends AbstractController
             $nblstDone = $todoRepo->findBy(['AuthorId' => $user,'etat' => 1 ]);
             $nblstInProgress = $todoRepo->findBy(['AuthorId' => $user, 'etat' => 0]);
         }
-
-        /*$nblst = $todoRepo->findAll();
-        $nblstDone = $todoRepo->findBy(['etat' => 1 ]);
-        $nblstInProgress = $todoRepo->findBy(['etat' => 0]);
-        */
         
         return $this->render('home/home.html.twig', [
             'controller_name' => 'HomeController',
