@@ -34,7 +34,7 @@ class HomeController extends AbstractController
         }
         else {
             $nblst = $todoRepo->findBy(['AuthorId' => $user]);
-            $nblstDone = $todoRepo->findBy(['AuthorId' => $user,'etat' => 1 ]);
+            $nblstDone = $todoRepo->findBy(['AuthorId' => $user,'etat' => 1]);
             $nblstInProgress = $todoRepo->findBy(['AuthorId' => $user, 'etat' => 0]);
         }
         
