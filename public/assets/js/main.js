@@ -32,6 +32,14 @@ document.addEventListener('DOMContentLoaded', function () {
                         editButton.classList.toggle('disabled', data.etat === 1);
                     }
                 }
+                
+                const notification = document.querySelector('#notification-success');
+                if (data.etat === 1) {
+                    notification.classList.add('show');
+                    setTimeout(() => {
+                        notification.classList.remove('show');
+                    }, 4000);
+                }
             } else {
                 alert('An error occurred');
             }
@@ -43,3 +51,4 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', markAsDone);
     });
 });
+

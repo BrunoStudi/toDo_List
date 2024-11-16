@@ -4,7 +4,7 @@
 
 {% block body %}
 
-	<div class="d-flex flex-column min-vh-100">
+	<div class="d-flex flex-column">
         <div class="container shadow bg-white col-md-6 mt-5" style="border-radius: 10px;">
             <div class="p-3">
                 <form method="post">
@@ -20,12 +20,11 @@
                     </div>
                     {{ form_row(todoForm._token) }}
                     <div class="save-button mb-3 mt-4 text-center"> 
-                        <button type="submit" class="btn btn-outline-primary">Enregistrer</button>
+                        <button type="submit" class="btn btn-outline-primary" id="save-list">Enregistrer</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-
+    
 {% endblock %}

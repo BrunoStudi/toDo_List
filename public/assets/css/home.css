@@ -1,7 +1,8 @@
 /* initialisation */
 * {
-    letter-spacing: 0px;
-    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 /* Bouton d'edition d'une tache */
@@ -58,4 +59,23 @@
 
 form .btn:hover {
     transform: scale(1.04);
+}
+
+.subnotif #notification-success {
+    position: fixed;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    background-color: rgb(71, 205, 71);
+    padding: 1rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    right: 26%;
+    bottom: -8rem;
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
+    transition: .5s;
+}
+
+.subnotif #notification-success.show {
+    bottom: 2rem;
 }

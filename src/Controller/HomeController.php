@@ -45,12 +45,4 @@ class HomeController extends AbstractController
             'nblstInProgress' => $nblstInProgress
         ]);
     }
-
-    #[Route('/error', name: 'app_error')]
-    public function errorPage() 
-    {
-        return $this->render('404/404.html.twig', [
-            'controller_name' => 'HomeController'
-        ]);
-    }
 }

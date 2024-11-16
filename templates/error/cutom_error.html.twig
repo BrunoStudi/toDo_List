@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Erreur {{ status_code }} {% endblock %}
+
+{% block body %}
+
+    <h1 class="text-danger text-center" style="font-size: 150px; margin-top: 350px;">{{ status_code }}</h1>
+    <h2 class="text-warning text-center mt-5">Oups ! Une erreur est survenue.</h2>
+    <p class="text-center mt-5">{{ message }}</p>
+
+{% endblock %}

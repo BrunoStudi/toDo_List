@@ -2,10 +2,9 @@
 
 namespace App\Controller;
 
-use DateTime;
 use App\Entity\Todo;
 use App\Entity\User;
-use DateTimeImmutable;
+use Psr\Log\LoggerInterface;
 use App\Form\TodoListFormType;
 use App\Repository\TodoRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,50 +22,61 @@ class ListController extends AbstractController
     public function index(
         TodoRepository $todoRepo, 
         Security $security, 
-        AuthorizationCheckerInterface $authChecker): Response
-    {
-        $user = $security->getUser();
-        
+        AuthorizationCheckerInterface $authChecker,
+        LoggerInterface $logger): Response
+    {   
         // Récupération des listes de l'utilisateur connecté ou toutes pour l'admin
-        if ($authChecker->isGranted('ROLE_ADMIN')) {
-            $todo = $todoRepo->findAll();
+        try {
+            $user = $security->getUser();
+            if ($authChecker->isGranted('ROLE_ADMIN')) {
+                $todo = $todoRepo->findAll();
+            }
+            else {
+                $todo = $todoRepo->findBy(['AuthorId' => $user]);
+            }
+            
+            return $this->render('list/index.html.twig', [
+                'todo' => $todo
+            ]);
+        } catch (\Throwable $e) {
+            throw $e;
         }
-        else {
-            $todo = $todoRepo->findBy(['AuthorId' => $user]);
-        }
-        
-        return $this->render('list/index.html.twig', [
-            'todo' => $todo
-        ]);
     }
 
     #[Route('user/task/add', name: 'add_list')]
     public function add(
         Request $request, 
-        EntityManagerInterface $entityManager): Response
+        EntityManagerInterface $entityManager,
+        LoggerInterface $logger): Response
     {
-        $todo = new Todo();
+        try {
+            //throw new \Exception('Test d\'erreur personnalisé');
+            $todo = new Todo();
 
-        $form = $this->createForm(TodoListFormType::class, $todo);
-        $form->handleRequest($request);
+            $form = $this->createForm(TodoListFormType::class, $todo);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Si l'état de la todo est null, le fixer à 0
-            if ($todo->getEtat() === null) {
-                $todo->setEtat(0);
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Si l'état de la todo est null, le fixer à 0
+                if ($todo->getEtat() === null) {
+                    $todo->setEtat(0);
+                }
+                $todo->setAuthorId($this->getUser());
+                $entityManager->persist($todo);
+                $entityManager->flush();
+
+                // Redirection vers la page d'accueil
+                return $this->redirectToRoute('aff_list', [], Response::HTTP_SEE_OTHER);
             }
-            $todo->setAuthorId($this->getUser());
-            $entityManager->persist($todo);
-            $entityManager->flush();
 
-            // Redirection vers la page d'accueil
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return $this->render('list/add.html.twig', [
+                'todo' => $todo,
+                'todoForm' => $form
+            ]);
         }
-
-        return $this->render('list/add.html.twig', [
-            'todo' => $todo,
-            'todoForm' => $form
-        ]);
+        catch (\Throwable $e) {
+           throw $e;
+        }
     }
 
     #[Route('user/task/edit/{id}', name: 'edt_list', methods: ['GET', 'POST'])]

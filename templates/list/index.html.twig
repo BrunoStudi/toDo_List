@@ -3,7 +3,7 @@
 {% block title %} {{ app.session.get("setting").siteName }} | Mes Listes{% endblock %}
 
 {% block body %}
-    <div class="container-xxl py-5">
+    <div class="subnotif container-xxl py-5">
         <div class="container text-center">
             <h2 class="text-center my-5 text-uppercase bg-light rounded border py-3 shadow">Gérer mes tâches</h2>
             <div class="row g-4 mt-5 d-flex flex-wrap justify-content-center">
@@ -28,6 +28,9 @@
                 {% endfor %}
             </div>
             <a href="{{ path('add_list') }}" class="btn btn-outline-primary my-5" style="width: 180px; height: 40px">Ajouter une tâche</a>
+        </div>
+        <div id="notification-success">
+            Tâche marquée terminée.
         </div>
     </div>
 {% endblock %}
