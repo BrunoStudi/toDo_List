@@ -1,17 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ app.session.get("setting").siteName }} | Mes Listes{% endblock %}
+{% block title %} {{ app.session.get("setting").siteName }} | {% if is_granted('ROLE_ADMIN') %}Gérer toutes les tâches{% else %}Gérer mes tâches{% endif %}{% endblock %}
 
 {% block body %}
     <div class="subnotif container-xxl py-5">
         <div class="container text-center">
-            <h2 class="text-center my-5 text-uppercase bg-light rounded border py-3 shadow">Gérer mes tâches</h2>
+            <h2 class="text-center my-5 text-uppercase bg-light rounded border py-3 shadow">{% if is_granted('ROLE_ADMIN') %}Gérer toutes les tâches{% else %}Gérer mes tâches{% endif %}</h2>
             <div class="row g-4 mt-5 d-flex flex-wrap justify-content-center">
                 {% for item in todo %}
                     <div id="item-{{ item.id }}" class="card col-lg-4 col-md-6 mx-3 bg-light shadow {{ item.etat == 1 ? 'border-success' : 'border-danger' }}" style="width: 18rem; border: solid 2px;">
                         <div class="card-body text-center overflow-auto" style="width: 260px; height: 180px;">
                             <h5 class="card-title border-bottom pb-2">
-                                <a href="#" class="mark-as-done" data-id="{{ item.id }}"><i class="{{ item.etat == 1 ? 'bi bi-pin-angle-fill text-success' : 'bi bi-pin text-danger' }}"></i></a>&nbsp{{ item.title }}
+                                <a href="#" class="mark-as-done" data-id="{{ item.id }}" data-index="{{ loop.index }}">
+                                    <i class="{{ item.etat == 1 ? 'bi bi-pin-angle-fill text-success' : 'bi bi-pin text-danger' }}"></i>
+                                </a>&nbsp{{ loop.index }}-&nbsp{{ item.title }}
                             </h5>                           
                             <p class="card-text" style="font-style: italic">{{ item.description }}</p>                           
                         </div>
@@ -24,13 +26,14 @@
                             </a>
                         </div>
                         <p class="text-center m-0" style="font-size: 12px;">Liste créée le: {{ item.CreatedAt.format('d/m/Y') }}</p>
+                        {% if is_granted('ROLE_ADMIN') %}<p class="text-center m-0" style="font-size: 12px;">Par: {{ item.authorId.surname }}{% else %}{% endif %}</p>
                     </div>
                 {% endfor %}
             </div>
             <a href="{{ path('add_list') }}" class="btn btn-outline-primary my-5" style="width: 180px; height: 40px">Ajouter une tâche</a>
         </div>
-        <div id="notification-success">
-            Tâche marquée terminée.
-        </div>
+
+        {# conteneur pour la notification dynamique #}
+        <div id="notification-container"></div>
     </div>
 {% endblock %}

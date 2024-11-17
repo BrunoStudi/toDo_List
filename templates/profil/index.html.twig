@@ -105,6 +105,11 @@
                                                         Auteur
                                                     {% endif %}
                                                 </th>
+                                                <th>
+                                                    {% if is_granted('ROLE_ADMIN') %}
+                                                        Prénom
+                                                    {% endif %}
+                                                </th>
                                                 <th>Date</th>
                                                 <th>Status</th>
                                                 <th>Actions</th>
@@ -117,6 +122,11 @@
                                                 <td>
                                                     {% if is_granted('ROLE_ADMIN') %}
                                                         {{ item.authorId }}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if is_granted('ROLE_ADMIN') %}
+                                                        {{ item.authorId.surname }}
                                                     {% endif %}
                                                 </td>
                                                 <td>{{ item.CreatedAt.format('d/m/Y') }}</td>
