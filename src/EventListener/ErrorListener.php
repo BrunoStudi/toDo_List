@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\EventListener;
 
 use Twig\Environment;
@@ -12,17 +11,19 @@ class ErrorListener
 {
     private $twig;
 
+    // Constructeur pour acceder a l'environement du template twig
     public function __construct(Environment $twig)
     {
         $this->twig = $twig;
     }
 
+    // Capture de l'evenement d'erreur
     public function onKernelException(ExceptionEvent $event)
     {
         $exception = $event->getThrowable();
         $response = new Response();
 
-        // Déterminer le code de statut HTTP
+        // Déterminer le code de statut HTTP (500, 404 etc..)
         if ($exception instanceof HttpExceptionInterface) {
             $statusCode = $exception->getStatusCode();
         } else {
@@ -38,9 +39,6 @@ class ErrorListener
             $message = 'Une erreur serveur est survenue.';
         }
 
-        // Récupérer l'utilisateur depuis le TokenStorage
-      
-
         // Rendu de la vue d'erreur
         $response->setContent(
             $this->twig->render('error/cutom_error.html.twig', [
@@ -48,7 +46,6 @@ class ErrorListener
                 'status_code' => $statusCode
             ])
         );
-
         $event->setResponse($response);  // On remplace la réponse par celle-ci
     }
 }

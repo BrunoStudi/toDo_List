@@ -17,6 +17,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class ProfilController extends AbstractController
 {
+    // Récupération du profil connecté
     #[Route('/user/profil', name: 'app_profil')]
     public function index(
         TodoRepository $todoRepo, 
@@ -39,6 +40,7 @@ class ProfilController extends AbstractController
         ]);
     }
 
+    // Edition du profil connecté
     #[Route('user/profil/edit/{id}', name: 'edt_profil', methods: ['GET', 'POST'])]
     public function edit(
         Request $request, 
@@ -51,6 +53,7 @@ class ProfilController extends AbstractController
             'attr' => ['enctype' => 'multipart/form-data'],
         ]);
 
+        // Envoie de la requete
         $form->handleRequest($request);
 
         // Vérification de la soumission du formulaire et de sa validité
@@ -69,8 +72,9 @@ class ProfilController extends AbstractController
                         $this->getParameter('images_directory'),
                         $newFilename
                     );
-                } catch (FileException $e) {
-                    // ... message d'erreur personalisé pour un echec d'upload.
+                } catch (FileException) {
+                    $this->addFlash('error', 'Erreur lors du téléversement du fichier.');
+                    return $this->redirectToRoute('edt_profil');
                 }
                 // mise à jour des propriétées de 'imageFile' pour enregistrer le nom de l'image.
                 $user->setAvatar($newFilename);
@@ -79,9 +83,8 @@ class ProfilController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
             }
-
-            // Redirection vers la liste des todos
-            return $this->redirectToRoute('app_profil', [], Response::HTTP_SEE_OTHER);
+                // Redirection vers la liste des todos
+                return $this->redirectToRoute('app_profil', [], Response::HTTP_SEE_OTHER);
         }
 
         // Affichage du formulaire de modification de la todo.
