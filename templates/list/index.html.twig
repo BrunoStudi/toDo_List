@@ -11,9 +11,9 @@
                     <div id="item-{{ item.id }}" class="card col-lg-4 col-md-6 mx-3 bg-light shadow {{ item.etat == 1 ? 'border-success' : 'border-danger' }}" style="width: 18rem; border: solid 2px;">
                         <div class="card-body text-center overflow-auto" style="width: 260px; height: 180px;">
                             <h5 class="card-title border-bottom pb-2">
-                                <a href="#" class="mark-as-done" data-id="{{ item.id }}" data-index="{{ loop.index }}">
+                                <a href="#" class="mark-as-done" data-id="{{ item.id }}" data-index="{{ loop.index }}" style="text-decoration : none;">
                                     <i class="{{ item.etat == 1 ? 'bi bi-pin-angle-fill text-success' : 'bi bi-pin text-danger' }}"></i>
-                                </a>&nbsp{{ loop.index }}-&nbsp{{ item.title }}
+                                </a>&nbsp{{ loop.index }}&nbsp-&nbsp{{ item.title }}
                             </h5>                           
                             <p class="card-text" style="font-style: italic">{{ item.description }}</p>                           
                         </div>
